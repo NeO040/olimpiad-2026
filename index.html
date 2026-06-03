@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Медицина будущего 2026 — Дашборд</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1F3D;
+    --navy-light: #1A2F54;
+    --navy-mid: #243D6B;
+    --accent: #C8A96E;
+    --accent-light: #E8D4A8;
+    --accent-pale: #F9F4EC;
+    --green: #2D6A4F;
+    --green-light: #D8EFDF;
+    --green-pale: #F0FAF3;
+    --blue: #1B4F8A;
+    --blue-light: #D0E3F5;
+    --blue-pale: #EEF5FC;
+    --amber: #92570A;
+    --amber-light: #FAEACF;
+    --amber-pale: #FDF5E8;
+    --red: #9B2335;
+    --red-light: #F5D0D5;
+    --red-pale: #FDF0F2;
+    --gray: #5C6478;
+    --gray-light: #E8EAF0;
+    --gray-pale: #F6F7F9;
+    --purple: #5436A5;
+    --purple-light: #DED8F5;
+    --purple-pale: #F2F0FC;
+    --border: #E2E5EE;
+    --text-primary: #0F1F3D;
+    --text-secondary: #4A5369;
+    --text-muted: #8A91A8;
+    --bg: #F4F5F8;
+    --white: #FFFFFF;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 1px 3px rgba(15,31,61,0.06), 0 1px 2px rgba(15,31,61,0.04);
+    --shadow-md: 0 4px 12px rgba(15,31,61,0.08), 0 2px 4px rgba(15,31,61,0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
+
+  /* LAYOUT */
+  .page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 64px; }
+
+  /* HEADER */
+  .header { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .header-left {}
+  .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .header-title { font-size: 26px; font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .header-right { text-align: right; }
+  .header-date { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+  .header-badge { display: inline-block; background: rgba(200,169,110,0.2); border: 1px solid rgba(200,169,110,0.4); color: var(--accent); font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 20px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .kpi-card.green::before { background: var(--green); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.amber::before { background: var(--amber); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+  .kpi-val { font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .kpi-val.green { color: var(--green); }
+  .kpi-val.blue { color: var(--blue); }
+  .kpi-val.amber { color: var(--amber); }
+  .kpi-val.purple { color: var(--purple); }
+  .kpi-sub { font-size: 12px; color: var(--text-muted); }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-65-35 { display: grid; grid-template-columns: 65fr 35fr; gap: 16px; margin-bottom: 16px; }
+  .grid-60-40 { display: grid; grid-template-columns: 60fr 40fr; gap: 16px; margin-bottom: 16px; }
+  .mb16 { margin-bottom: 16px; }
+
+  /* CARD */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 24px; box-shadow: var(--shadow-sm); }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .card-count { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0 8px; border-bottom: 1px solid var(--border); text-align: left; }
+  th.num { text-align: right; }
+  td { padding: 9px 0; border-bottom: 1px solid var(--gray-light); font-size: 13px; color: var(--text-primary); vertical-align: middle; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .tfoot-row td { font-weight: 600; border-top: 1px solid var(--border); padding-top: 10px; background: var(--gray-pale); }
+
+  /* BADGE */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-gray { background: var(--gray-light); color: var(--gray); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-navy { background: rgba(15,31,61,0.08); color: var(--navy); }
+
+  /* PROGRESS BAR */
+  .prog-wrap { margin-top: 5px; }
+  .prog-track { height: 4px; background: var(--gray-light); border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 2px; background: var(--navy); }
+  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+
+  /* CONFIRMED GRID */
+  .conf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .conf-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-pale); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .conf-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 20px; }
+  .conf-info {}
+  .conf-name { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+  .conf-country { font-size: 11px; color: var(--text-muted); }
+
+  /* CHANNEL LIST */
+  .channel-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--gray-light); }
+  .channel-item:last-child { border-bottom: none; }
+  .channel-left { display: flex; align-items: center; gap: 10px; }
+  .channel-icon { width: 30px; height: 30px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .ch-navy { background: rgba(15,31,61,0.08); }
+  .ch-teal { background: rgba(14,116,144,0.1); }
+  .ch-blue-li { background: rgba(10,102,194,0.1); }
+  .ch-pink { background: rgba(193,53,132,0.1); }
+  .ch-green-wa { background: rgba(37,211,102,0.1); }
+  .ch-purple { background: rgba(84,54,165,0.1); }
+  .channel-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .channel-desc { font-size: 11px; color: var(--text-muted); }
+  .channel-count { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: var(--text-primary); }
+
+  /* TODO */
+  .todo-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--gray-light); }
+  .todo-item:last-child { border-bottom: none; }
+  .todo-tag { flex-shrink: 0; padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; margin-top: 1px; min-width: 68px; text-align: center; }
+  .tag-urgent { background: var(--red-pale); color: var(--red); border: 1px solid var(--red-light); }
+  .tag-important { background: var(--amber-pale); color: var(--amber); border: 1px solid var(--amber-light); }
+  .tag-planned { background: var(--blue-pale); color: var(--blue); border: 1px solid var(--blue-light); }
+  .todo-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; padding-top: 2px; }
+  .todo-text strong { color: var(--text-primary); font-weight: 500; }
+
+  /* STAT ROW */
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-light); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 13px; color: var(--text-secondary); }
+  .stat-val { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--text-primary); }
+
+  /* SECTION HEADER */
+  .section-hdr { display: flex; align-items: center; gap: 10px; margin: 24px 0 14px; }
+  .section-hdr-line { flex: 1; height: 1px; background: var(--border); }
+  .section-hdr-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+
+  /* FOOTER */
+  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-size: 12px; color: var(--text-muted); }
+  .footer-logo { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.03em; }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 16px; max-width: 100%; }
+    .card, .kpi-card { box-shadow: none; border: 1px solid #ddd; }
+    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Central Asian University &nbsp;·&nbsp; Ташкент, Узбекистан</div>
+      <div class="header-title">Медицина будущего 2026<br>Общий дашборд</div>
+      <div class="header-sub">Международная олимпиада студентов медицинских вузов &nbsp;·&nbsp; 31 октября — 3 ноября 2026</div>
+    </div>
+    <div class="header-right">
+      <div class="header-date">Обновлено: 03.06.2026</div>
+      <div class="header-badge">Главный приз: 500 000 000 сум</div>
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Охвачено вузов</div>
+      <div class="kpi-val">363</div>
+      <div class="kpi-sub">30+ стран</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Подтверждено</div>
+      <div class="kpi-val green">19</div>
+      <div class="kpi-sub">университетов</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Инфо отправлена</div>
+      <div class="kpi-val blue">313</div>
+      <div class="kpi-sub">вузов охвачено</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Ожидаем ответа</div>
+      <div class="kpi-val amber">38</div>
+      <div class="kpi-sub">список + ответ</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">Профессора</div>
+      <div class="kpi-val purple">13</div>
+      <div class="kpi-sub">задействовано</div>
+    </div>
+  </div>
+
+  <!-- REGION + CIS -->
+  <div class="grid-2 mb16">
+    <div class="card">
+      <div class="card-title">Охват по регионам</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Регион</th>
+            <th class="num">Вузов</th>
+            <th class="num">Подтв.</th>
+            <th class="num">Рассылка</th>
+            <th style="padding-left:12px">Охват</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>СНГ</strong></td>
+            <td class="num">48</td>
+            <td class="num"><span class="badge badge-green">9</span></td>
+            <td class="num">27</td>
+            <td style="padding-left:12px; min-width:110px">
+              <div class="prog-label"><span>75%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:75%; background:var(--green)"></div></div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Европа</strong></td>
+            <td class="num">165</td>
+            <td class="num"><span class="badge badge-gray">0</span></td>
+            <td class="num">50</td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><span>30%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:30%; background:var(--blue)"></div></div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Азия / Бл. Восток</strong></td>
+            <td class="num">150</td>
+            <td class="num"><span class="badge badge-green">10</span></td>
+            <td class="num">59</td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><span>46%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:46%; background:var(--amber)"></div></div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot-row">
+            <td><strong>Итого</strong></td>
+            <td class="num"><strong>363</strong></td>
+            <td class="num"><strong>19</strong></td>
+            <td class="num"><strong>136</strong></td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><strong>43%</strong></div>
+              <div class="prog-track"><div class="prog-fill" style="width:43%"></div></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Статусы по СНГ</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Страна</th>
+            <th class="num">Вузов</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Узбекистан</td>
+            <td class="num">22</td>
+            <td><span class="badge badge-blue">13 ожид. список</span></td>
+          </tr>
+          <tr>
+            <td>Казахстан</td>
+            <td class="num">14</td>
+            <td><span class="badge badge-green">4 подтверждено</span></td>
+          </tr>
+          <tr>
+            <td>Кыргызстан</td>
+            <td class="num">7</td>
+            <td><span class="badge badge-green">2 подтверждено</span></td>
+          </tr>
+          <tr>
+            <td>Таджикистан</td>
+            <td class="num">5</td>
+            <td><span class="badge badge-purple">2 в обсуждении</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
+        <div class="card-title" style="margin-bottom:10px; border:none; padding:0; font-size:12px; color:var(--text-muted)">Европа — ключевые статусы</div>
+        <table>
+          <tbody>
+            <tr><td>Швеция (6 вузов)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Швейцария (4 вуза)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Дания (2 вуза)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Испания (18 вузов)</td><td><span class="badge badge-amber">4 email, 14 нет отв.</span></td></tr>
+            <tr><td>Германия (11 вузов)</td><td><span class="badge badge-red">Нет связи / перезв.</span></td></tr>
+            <tr><td>Италия (9 вузов)</td><td><span class="badge badge-amber">Частично нет связи</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNELS + PROFESSORS -->
+  <div class="grid-2 mb16">
+    <div class="card">
+      <div class="card-title">Каналы коммуникации <span class="card-count">всего точек контакта</span></div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-navy">📞</div>
+          <div><div class="channel-name">Звонки</div><div class="channel-desc">Прямые звонки в университеты</div></div>
+        </div>
+        <div class="channel-count">363</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-teal">📧</div>
+          <div><div class="channel-name">Email-рассылки</div><div class="channel-desc">Пригласительные письма</div></div>
+        </div>
+        <div class="channel-count">100+</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-blue-li">💼</div>
+          <div><div class="channel-name">LinkedIn</div><div class="channel-desc">Рассылки через LinkedIn</div></div>
+        </div>
+        <div class="channel-count">20+</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-pink">📱</div>
+          <div><div class="channel-name">Instagram</div><div class="channel-desc">Страницы факультетов</div></div>
+        </div>
+        <div class="channel-count">64</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-green-wa">💬</div>
+          <div><div class="channel-name">WhatsApp</div><div class="channel-desc">Персональные рассылки</div></div>
+        </div>
+        <div class="channel-count">32</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-purple">🎓</div>
+          <div><div class="channel-name">Профессорская сеть</div><div class="channel-desc">Через академические контакты</div></div>
+        </div>
+        <div class="channel-count">13</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Профессорские рассылки <span class="card-count">13 контактов</span></div>
+      <table>
+        <thead>
+          <tr><th>Профессор</th><th>Страна</th><th>Статус</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Dr. Nahid Shakib</td><td>Иран</td><td><span class="badge badge-green">✓ Подтв.</span></td></tr>
+          <tr><td>Проф. Imshik Lee</td><td>Корея</td><td><span class="badge badge-navy">В работе</span></td></tr>
+          <tr><td>Проф. Erdogan Ekiz</td><td>CAU</td><td><span class="badge badge-navy">В работе</span></td></tr>
+          <tr><td>Проф. Jeongchan Park</td><td>Корея</td><td><span class="badge badge-amber">Визит июль</span></td></tr>
+          <tr><td>B. Kiani</td><td>Иран / США</td><td><span class="badge badge-amber">Встреча лето</span></td></tr>
+          <tr><td>Проф. Govindh Ambika</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Проф. Dr. Niladri</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Sunil CM</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Зулайхо Мансурова</td><td>Узбекистан</td><td><span class="badge badge-navy">Получила PDF</span></td></tr>
+          <tr><td>Мафтуна Артикова</td><td>Узбекистан</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Eugene Castro</td><td>CAU</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Dr. Mokshada Sharma</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Mbq</td><td>Узбекистан</td><td><span class="badge badge-gray">Фокус Европа</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONFIRMED -->
+  <div class="card mb16">
+    <div class="card-title">Подтверждённые участники <span class="card-count">19 университетов · 8 стран</span></div>
+    <div class="conf-grid">
+      <div class="conf-item"><span class="conf-num">01</span><div class="conf-info"><div class="conf-name">Astana Medical University</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">02</span><div class="conf-info"><div class="conf-name">Карагандинский медицинский университет</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">03</span><div class="conf-info"><div class="conf-name">Южно-Казахстанская медицинская академия</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">04</span><div class="conf-info"><div class="conf-name">Кокшетауский ун-т им. Ш.Уалиханова</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">05</span><div class="conf-info"><div class="conf-name">Казахский НМУ им. С.Д.Асфендиярова</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">06</span><div class="conf-info"><div class="conf-name">КГМА Ахунбаева</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">07</span><div class="conf-info"><div class="conf-name">Asian International University</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">08</span><div class="conf-info"><div class="conf-name">Высшая школа медицины (Бишкек)</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">09</span><div class="conf-info"><div class="conf-name">Avicenna Tajik State Medical University</div><div class="conf-country">Таджикистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">10</span><div class="conf-info"><div class="conf-name">Хатлонский ГМУ</div><div class="conf-country">Таджикистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">11</span><div class="conf-info"><div class="conf-name">Сеченовский университет</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">12</span><div class="conf-info"><div class="conf-name">Крымский Федеральный Университет</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">13</span><div class="conf-info"><div class="conf-name">Hasanuddin University</div><div class="conf-country">Индонезия</div></div></div>
+      <div class="conf-item"><span class="conf-num">14</span><div class="conf-info"><div class="conf-name">Universitas Airlangga</div><div class="conf-country">Индонезия</div></div></div>
+      <div class="conf-item"><span class="conf-num">15</span><div class="conf-info"><div class="conf-name">Isfahan University of Medical Sciences</div><div class="conf-country">Иран</div></div></div>
+      <div class="conf-item"><span class="conf-num">16</span><div class="conf-info"><div class="conf-name">Karadeniz Technical University</div><div class="conf-country">Турция</div></div></div>
+      <div class="conf-item"><span class="conf-num">17</span><div class="conf-info"><div class="conf-name">New Vision University</div><div class="conf-country">Грузия</div></div></div>
+      <div class="conf-item"><span class="conf-num">18</span><div class="conf-info"><div class="conf-name">Osiyo Xalqaro Universiteti (OXU)</div><div class="conf-country">Узбекистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">19</span><div class="conf-info"><div class="conf-name">Central Asian Medical University (MERIDIAN)</div><div class="conf-country">Узбекистан</div></div></div>
+    </div>
+  </div>
+
+  <!-- TODO -->
+  <div class="card">
+    <div class="card-title">Приоритетные задачи</div>
+    <div class="todo-item">
+      <span class="todo-tag tag-urgent">Срочно</span>
+      <div class="todo-text"><strong>Перезвонить:</strong> Венгрия (3 вуза), Нидерланды (5), Ирландия (5), Греция (7), Болгария (2), Португалия (2)</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-urgent">Срочно</span>
+      <div class="todo-text"><strong>Германия:</strong> Heidelberg — перезвонить. Charité, LMU München — найти англоязычный контакт или email</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Италия:</strong> Verona, Bari, Perugia — перезвонить (не подняли). Messina, Catania — найти альтернативный контакт</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Россия:</strong> РНИМУ, СПбГМУ, Казань, Новосибирск, Уральский ГМУ — перезвонить</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Индия:</strong> отправить письмо в Kasturba Medical College, Manipal. <strong>Катар:</strong> перезвонить в воскресенье</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-planned">В плане</span>
+      <div class="todo-text"><strong>Чехия:</strong> email в Masaryk, Palacký, Ostrava (нет телефонного контакта). <strong>LinkedIn:</strong> активировать рассылки по Бельгии</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-planned">В плане</span>
+      <div class="todo-text"><strong>Швеция, Дания, Швейцария:</strong> ожидаем ответы на отправленные письма. Напомнить через 3–5 дней</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Конфиденциально · Только для внутреннего использования · CAU Events Team</div>
+    <div class="footer-logo">CAU · Medicine of the Future 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
