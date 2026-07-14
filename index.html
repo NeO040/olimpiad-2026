@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Медицина будущего 2026 — Дашборд</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1F3D;
+    --navy-light: #1A2F54;
+    --navy-mid: #243D6B;
+    --accent: #C8A96E;
+    --accent-light: #E8D4A8;
+    --accent-pale: #F9F4EC;
+    --green: #2D6A4F;
+    --green-light: #D8EFDF;
+    --green-pale: #F0FAF3;
+    --blue: #1B4F8A;
+    --blue-light: #D0E3F5;
+    --blue-pale: #EEF5FC;
+    --amber: #92570A;
+    --amber-light: #FAEACF;
+    --amber-pale: #FDF5E8;
+    --red: #9B2335;
+    --red-light: #F5D0D5;
+    --red-pale: #FDF0F2;
+    --gray: #5C6478;
+    --gray-light: #E8EAF0;
+    --gray-pale: #F6F7F9;
+    --purple: #5436A5;
+    --purple-light: #DED8F5;
+    --purple-pale: #F2F0FC;
+    --border: #E2E5EE;
+    --text-primary: #0F1F3D;
+    --text-secondary: #4A5369;
+    --text-muted: #8A91A8;
+    --bg: #F4F5F8;
+    --white: #FFFFFF;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 1px 3px rgba(15,31,61,0.06), 0 1px 2px rgba(15,31,61,0.04);
+    --shadow-md: 0 4px 12px rgba(15,31,61,0.08), 0 2px 4px rgba(15,31,61,0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); font-size: 14px; line-height: 1.5; }
+
+  /* LAYOUT */
+  .page { max-width: 1280px; margin: 0 auto; padding: 32px 32px 64px; }
+
+  /* HEADER */
+  .header { background: var(--navy); border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .header-left {}
+  .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .header-title { font-size: 26px; font-weight: 600; color: var(--white); line-height: 1.2; margin-bottom: 6px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .header-right { text-align: right; }
+  .header-date { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
+  .header-badge { display: inline-block; background: rgba(200,169,110,0.2); border: 1px solid rgba(200,169,110,0.4); color: var(--accent); font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
+  .kpi-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 20px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+  .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--navy); }
+  .kpi-card.green::before { background: var(--green); }
+  .kpi-card.blue::before { background: var(--blue); }
+  .kpi-card.amber::before { background: var(--amber); }
+  .kpi-card.purple::before { background: var(--purple); }
+  .kpi-label { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+  .kpi-val { font-size: 32px; font-weight: 600; color: var(--text-primary); line-height: 1; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+  .kpi-val.green { color: var(--green); }
+  .kpi-val.blue { color: var(--blue); }
+  .kpi-val.amber { color: var(--amber); }
+  .kpi-val.purple { color: var(--purple); }
+  .kpi-sub { font-size: 12px; color: var(--text-muted); }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid-65-35 { display: grid; grid-template-columns: 65fr 35fr; gap: 16px; margin-bottom: 16px; }
+  .grid-60-40 { display: grid; grid-template-columns: 60fr 40fr; gap: 16px; margin-bottom: 16px; }
+  .mb16 { margin-bottom: 16px; }
+
+  /* CARD */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 24px; box-shadow: var(--shadow-sm); }
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .card-count { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0 8px; border-bottom: 1px solid var(--border); text-align: left; }
+  th.num { text-align: right; }
+  td { padding: 9px 0; border-bottom: 1px solid var(--gray-light); font-size: 13px; color: var(--text-primary); vertical-align: middle; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .tfoot-row td { font-weight: 600; border-top: 1px solid var(--border); padding-top: 10px; background: var(--gray-pale); }
+
+  /* BADGE */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-blue { background: var(--blue-light); color: var(--blue); }
+  .badge-amber { background: var(--amber-light); color: var(--amber); }
+  .badge-red { background: var(--red-light); color: var(--red); }
+  .badge-gray { background: var(--gray-light); color: var(--gray); }
+  .badge-purple { background: var(--purple-light); color: var(--purple); }
+  .badge-navy { background: rgba(15,31,61,0.08); color: var(--navy); }
+
+  /* PROGRESS BAR */
+  .prog-wrap { margin-top: 5px; }
+  .prog-track { height: 4px; background: var(--gray-light); border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; border-radius: 2px; background: var(--navy); }
+  .prog-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+
+  /* CONFIRMED GRID */
+  .conf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .conf-item { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--gray-pale); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .conf-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 20px; }
+  .conf-info {}
+  .conf-name { font-size: 12px; font-weight: 500; color: var(--text-primary); }
+  .conf-country { font-size: 11px; color: var(--text-muted); }
+
+  /* CHANNEL LIST */
+  .channel-item { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--gray-light); }
+  .channel-item:last-child { border-bottom: none; }
+  .channel-left { display: flex; align-items: center; gap: 10px; }
+  .channel-icon { width: 30px; height: 30px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .ch-navy { background: rgba(15,31,61,0.08); }
+  .ch-teal { background: rgba(14,116,144,0.1); }
+  .ch-blue-li { background: rgba(10,102,194,0.1); }
+  .ch-pink { background: rgba(193,53,132,0.1); }
+  .ch-green-wa { background: rgba(37,211,102,0.1); }
+  .ch-purple { background: rgba(84,54,165,0.1); }
+  .channel-name { font-size: 13px; color: var(--text-primary); font-weight: 500; }
+  .channel-desc { font-size: 11px; color: var(--text-muted); }
+  .channel-count { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: var(--text-primary); }
+
+  /* TODO */
+  .todo-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--gray-light); }
+  .todo-item:last-child { border-bottom: none; }
+  .todo-tag { flex-shrink: 0; padding: 3px 9px; border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; margin-top: 1px; min-width: 68px; text-align: center; }
+  .tag-urgent { background: var(--red-pale); color: var(--red); border: 1px solid var(--red-light); }
+  .tag-important { background: var(--amber-pale); color: var(--amber); border: 1px solid var(--amber-light); }
+  .tag-planned { background: var(--blue-pale); color: var(--blue); border: 1px solid var(--blue-light); }
+  .todo-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; padding-top: 2px; }
+  .todo-text strong { color: var(--text-primary); font-weight: 500; }
+
+  /* STAT ROW */
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--gray-light); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 13px; color: var(--text-secondary); }
+  .stat-val { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--text-primary); }
+
+  /* SECTION HEADER */
+  .section-hdr { display: flex; align-items: center; gap: 10px; margin: 24px 0 14px; }
+  .section-hdr-line { flex: 1; height: 1px; background: var(--border); }
+  .section-hdr-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+
+  /* FOOTER */
+  .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-size: 12px; color: var(--text-muted); }
+  .footer-logo { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.03em; }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 16px; max-width: 100%; }
+    .card, .kpi-card { box-shadow: none; border: 1px solid #ddd; }
+    .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Central Asian University &nbsp;·&nbsp; Ташкент, Узбекистан</div>
+      <div class="header-title">Медицина будущего 2026<br>Общий дашборд</div>
+      <div class="header-sub">Международная олимпиада студентов медицинских вузов &nbsp;·&nbsp; 31 октября — 3 ноября 2026</div>
+    </div>
+    <div class="header-right">
+      <div class="header-date">Обновлено: 03.06.2026</div>
+      <div class="header-badge">Главный приз: 500 000 000 сум</div>
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Охвачено вузов</div>
+      <div class="kpi-val">363</div>
+      <div class="kpi-sub">30+ стран</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Подтверждено</div>
+      <div class="kpi-val green">19</div>
+      <div class="kpi-sub">университетов</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">Инфо отправлена</div>
+      <div class="kpi-val blue">313</div>
+      <div class="kpi-sub">вузов охвачено</div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Ожидаем ответа</div>
+      <div class="kpi-val amber">38</div>
+      <div class="kpi-sub">список + ответ</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">Профессора</div>
+      <div class="kpi-val purple">13</div>
+      <div class="kpi-sub">задействовано</div>
+    </div>
+  </div>
+
+  <!-- REGION + CIS -->
+  <div class="grid-2 mb16">
+    <div class="card">
+      <div class="card-title">Охват по регионам</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Регион</th>
+            <th class="num">Вузов</th>
+            <th class="num">Подтв.</th>
+            <th class="num">Рассылка</th>
+            <th style="padding-left:12px">Охват</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>СНГ</strong></td>
+            <td class="num">48</td>
+            <td class="num"><span class="badge badge-green">9</span></td>
+            <td class="num">27</td>
+            <td style="padding-left:12px; min-width:110px">
+              <div class="prog-label"><span>75%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:75%; background:var(--green)"></div></div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Европа</strong></td>
+            <td class="num">165</td>
+            <td class="num"><span class="badge badge-gray">0</span></td>
+            <td class="num">50</td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><span>30%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:30%; background:var(--blue)"></div></div>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Азия / Бл. Восток</strong></td>
+            <td class="num">150</td>
+            <td class="num"><span class="badge badge-green">10</span></td>
+            <td class="num">59</td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><span>46%</span></div>
+              <div class="prog-track"><div class="prog-fill" style="width:46%; background:var(--amber)"></div></div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tfoot-row">
+            <td><strong>Итого</strong></td>
+            <td class="num"><strong>363</strong></td>
+            <td class="num"><strong>19</strong></td>
+            <td class="num"><strong>136</strong></td>
+            <td style="padding-left:12px">
+              <div class="prog-label"><strong>43%</strong></div>
+              <div class="prog-track"><div class="prog-fill" style="width:43%"></div></div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Статусы по СНГ</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Страна</th>
+            <th class="num">Вузов</th>
+            <th>Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Узбекистан</td>
+            <td class="num">22</td>
+            <td><span class="badge badge-blue">13 ожид. список</span></td>
+          </tr>
+          <tr>
+            <td>Казахстан</td>
+            <td class="num">14</td>
+            <td><span class="badge badge-green">4 подтверждено</span></td>
+          </tr>
+          <tr>
+            <td>Кыргызстан</td>
+            <td class="num">7</td>
+            <td><span class="badge badge-green">2 подтверждено</span></td>
+          </tr>
+          <tr>
+            <td>Таджикистан</td>
+            <td class="num">5</td>
+            <td><span class="badge badge-purple">2 в обсуждении</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
+        <div class="card-title" style="margin-bottom:10px; border:none; padding:0; font-size:12px; color:var(--text-muted)">Европа — ключевые статусы</div>
+        <table>
+          <tbody>
+            <tr><td>Швеция (6 вузов)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Швейцария (4 вуза)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Дания (2 вуза)</td><td><span class="badge badge-blue">Email отправлен</span></td></tr>
+            <tr><td>Испания (18 вузов)</td><td><span class="badge badge-amber">4 email, 14 нет отв.</span></td></tr>
+            <tr><td>Германия (11 вузов)</td><td><span class="badge badge-red">Нет связи / перезв.</span></td></tr>
+            <tr><td>Италия (9 вузов)</td><td><span class="badge badge-amber">Частично нет связи</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHANNELS + PROFESSORS -->
+  <div class="grid-2 mb16">
+    <div class="card">
+      <div class="card-title">Каналы коммуникации <span class="card-count">всего точек контакта</span></div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-navy">📞</div>
+          <div><div class="channel-name">Звонки</div><div class="channel-desc">Прямые звонки в университеты</div></div>
+        </div>
+        <div class="channel-count">363</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-teal">📧</div>
+          <div><div class="channel-name">Email-рассылки</div><div class="channel-desc">Пригласительные письма</div></div>
+        </div>
+        <div class="channel-count">100+</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-blue-li">💼</div>
+          <div><div class="channel-name">LinkedIn</div><div class="channel-desc">Рассылки через LinkedIn</div></div>
+        </div>
+        <div class="channel-count">20+</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-pink">📱</div>
+          <div><div class="channel-name">Instagram</div><div class="channel-desc">Страницы факультетов</div></div>
+        </div>
+        <div class="channel-count">64</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-green-wa">💬</div>
+          <div><div class="channel-name">WhatsApp</div><div class="channel-desc">Персональные рассылки</div></div>
+        </div>
+        <div class="channel-count">32</div>
+      </div>
+      <div class="channel-item">
+        <div class="channel-left">
+          <div class="channel-icon ch-purple">🎓</div>
+          <div><div class="channel-name">Профессорская сеть</div><div class="channel-desc">Через академические контакты</div></div>
+        </div>
+        <div class="channel-count">13</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Профессорские рассылки <span class="card-count">13 контактов</span></div>
+      <table>
+        <thead>
+          <tr><th>Профессор</th><th>Страна</th><th>Статус</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Dr. Nahid Shakib</td><td>Иран</td><td><span class="badge badge-green">✓ Подтв.</span></td></tr>
+          <tr><td>Проф. Imshik Lee</td><td>Корея</td><td><span class="badge badge-navy">В работе</span></td></tr>
+          <tr><td>Проф. Erdogan Ekiz</td><td>CAU</td><td><span class="badge badge-navy">В работе</span></td></tr>
+          <tr><td>Проф. Jeongchan Park</td><td>Корея</td><td><span class="badge badge-amber">Визит июль</span></td></tr>
+          <tr><td>B. Kiani</td><td>Иран / США</td><td><span class="badge badge-amber">Встреча лето</span></td></tr>
+          <tr><td>Проф. Govindh Ambika</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Проф. Dr. Niladri</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Sunil CM</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Зулайхо Мансурова</td><td>Узбекистан</td><td><span class="badge badge-navy">Получила PDF</span></td></tr>
+          <tr><td>Мафтуна Артикова</td><td>Узбекистан</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Eugene Castro</td><td>CAU</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Dr. Mokshada Sharma</td><td>Индия</td><td><span class="badge badge-gray">Ожидаем</span></td></tr>
+          <tr><td>Mbq</td><td>Узбекистан</td><td><span class="badge badge-gray">Фокус Европа</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CONFIRMED -->
+  <div class="card mb16">
+    <div class="card-title">Подтверждённые участники <span class="card-count">36 вузов · 37 команд · 11 стран</span></div>
+    <div class="conf-grid">
+      <div class="conf-item"><span class="conf-num">01</span><div class="conf-info"><div class="conf-name">Astana Medical University</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">02</span><div class="conf-info"><div class="conf-name">Карагандинский медицинский университет</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">03</span><div class="conf-info"><div class="conf-name">Южно-Казахстанская медицинская академия</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">04</span><div class="conf-info"><div class="conf-name">Кокшетауский ун-т им. Ш.Уалиханова</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">05</span><div class="conf-info"><div class="conf-name">Казахский НМУ им. С.Д.Асфендиярова</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">06</span><div class="conf-info"><div class="conf-name">КГМА Ахунбаева</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">07</span><div class="conf-info"><div class="conf-name">Asian International University</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">08</span><div class="conf-info"><div class="conf-name">Высшая школа медицины (Бишкек)</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">09</span><div class="conf-info"><div class="conf-name">Avicenna Tajik State Medical University</div><div class="conf-country">Таджикистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">10</span><div class="conf-info"><div class="conf-name">Хатлонский ГМУ</div><div class="conf-country">Таджикистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">11</span><div class="conf-info"><div class="conf-name">Сеченовский университет</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">12</span><div class="conf-info"><div class="conf-name">Крымский Федеральный Университет</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">13</span><div class="conf-info"><div class="conf-name">Hasanuddin University</div><div class="conf-country">Индонезия</div></div></div>
+      <div class="conf-item"><span class="conf-num">14</span><div class="conf-info"><div class="conf-name">Universitas Airlangga</div><div class="conf-country">Индонезия</div></div></div>
+      <div class="conf-item"><span class="conf-num">15</span><div class="conf-info"><div class="conf-name">Isfahan University of Medical Sciences</div><div class="conf-country">Иран</div></div></div>
+      <div class="conf-item"><span class="conf-num">16</span><div class="conf-info"><div class="conf-name">Karadeniz Technical University</div><div class="conf-country">Турция</div></div></div>
+      <div class="conf-item"><span class="conf-num">17</span><div class="conf-info"><div class="conf-name">New Vision University</div><div class="conf-country">Грузия</div></div></div>
+      <div class="conf-item"><span class="conf-num">18</span><div class="conf-info"><div class="conf-name">Osiyo Xalqaro Universiteti (OXU)</div><div class="conf-country">Узбекистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">19</span><div class="conf-info"><div class="conf-name">Central Asian Medical University (MERIDIAN)</div><div class="conf-country">Узбекистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">20</span><div class="conf-info"><div class="conf-name">МУ Семей (предварительно)</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">21</span><div class="conf-info"><div class="conf-name">Медицинский университет Астана</div><div class="conf-country">Казахстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">22</span><div class="conf-info"><div class="conf-name">Eastern Mediterranean University</div><div class="conf-country">Кипр</div></div></div>
+      <div class="conf-item"><span class="conf-num">23</span><div class="conf-info"><div class="conf-name">МГУ им. М.В. Ломоносова</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">24</span><div class="conf-info"><div class="conf-name">СПбГПМУ (Педиатрический)</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">25</span><div class="conf-info"><div class="conf-name">РНИМУ им. Н.И. Пирогова</div><div class="conf-country">Россия</div></div></div>
+      <div class="conf-item"><span class="conf-num">26</span><div class="conf-info"><div class="conf-name">Tbilisi State Medical University (TSMU)</div><div class="conf-country">Грузия</div></div></div>
+      <div class="conf-item"><span class="conf-num">27</span><div class="conf-info"><div class="conf-name">Ошский Государственный Университет</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">28</span><div class="conf-info"><div class="conf-name">ISM-IUK (команда Pulse Patrol)</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">29</span><div class="conf-info"><div class="conf-name">Kimyo International University in Tashkent (команда KIUT)</div><div class="conf-country">Узбекистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">30</span><div class="conf-info"><div class="conf-name">Термезский филиал ТГМУ (команда Махаон)</div><div class="conf-country">Узбекистан</div></div></div>
+      <div class="conf-item"><span class="conf-num">31</span><div class="conf-info"><div class="conf-name">Shahid Beheshti University of Medical Sciences</div><div class="conf-country">Иран</div></div></div>
+      <div class="conf-item"><span class="conf-num">32</span><div class="conf-info"><div class="conf-name">Международная Высшая Школа Медицины (IHSM) — кампус 1</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">33</span><div class="conf-info"><div class="conf-name">Международная Высшая Школа Медицины (IHSM) — кампус 2</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">34</span><div class="conf-info"><div class="conf-name">Ошский ГУ — кампус 2 (2-я команда)</div><div class="conf-country">Кыргызстан</div></div></div>
+      <div class="conf-item"><span class="conf-num">35</span><div class="conf-info"><div class="conf-name">EREBUNI Medical Academy Foundation</div><div class="conf-country">Армения</div></div></div>
+      <div class="conf-item"><span class="conf-num">36</span><div class="conf-info"><div class="conf-name">Карагандинский медицинский университет (обновлённая заявка)</div><div class="conf-country">Казахстан</div></div></div>
+    </div>
+  </div>
+
+  <!-- TODO -->
+  <div class="card">
+    <div class="card-title">Приоритетные задачи</div>
+    <div class="todo-item">
+      <span class="todo-tag tag-urgent">Срочно</span>
+      <div class="todo-text"><strong>Перезвонить:</strong> Венгрия (3 вуза), Нидерланды (5), Ирландия (5), Греция (7), Болгария (2), Португалия (2)</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-urgent">Срочно</span>
+      <div class="todo-text"><strong>Германия:</strong> Heidelberg — перезвонить. Charité, LMU München — найти англоязычный контакт или email</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Италия:</strong> Verona, Bari, Perugia — перезвонить (не подняли). Messina, Catania — найти альтернативный контакт</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Россия:</strong> РНИМУ, СПбГМУ, Казань, Новосибирск, Уральский ГМУ — перезвонить</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-important">Важно</span>
+      <div class="todo-text"><strong>Индия:</strong> отправить письмо в Kasturba Medical College, Manipal. <strong>Катар:</strong> перезвонить в воскресенье</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-planned">В плане</span>
+      <div class="todo-text"><strong>Чехия:</strong> email в Masaryk, Palacký, Ostrava (нет телефонного контакта). <strong>LinkedIn:</strong> активировать рассылки по Бельгии</div>
+    </div>
+    <div class="todo-item">
+      <span class="todo-tag tag-planned">В плане</span>
+      <div class="todo-text"><strong>Швеция, Дания, Швейцария:</strong> ожидаем ответы на отправленные письма. Напомнить через 3–5 дней</div>
+    </div>
+  </div>
+
+  <!-- UNIVERSITY TABLE -->
+  <div style="margin-top: 24px;">
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex:1; height:1px; background:var(--border);"></div>
+      <div style="font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); white-space:nowrap;">База университетов</div>
+      <div style="flex:1; height:1px; background:var(--border);"></div>
+    </div>
+
+    <!-- FILTERS -->
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; align-items:center;">
+      <div style="font-size:12px; color:var(--text-muted); margin-right:4px;">Статус:</div>
+      <button onclick="filterTable('status','all')" class="flt-btn active" data-group="status" data-val="all">Все</button>
+      <button onclick="filterTable('status','confirmed')" class="flt-btn" data-group="status" data-val="confirmed">✅ Подтверждено</button>
+      <button onclick="filterTable('status','waiting')" class="flt-btn" data-group="status" data-val="waiting">⏳ Ожидаем</button>
+      <button onclick="filterTable('status','email')" class="flt-btn" data-group="status" data-val="email">📧 Email отправлен</button>
+      <button onclick="filterTable('status','callback')" class="flt-btn" data-group="status" data-val="callback">📞 Перезвонить</button>
+      <button onclick="filterTable('status','nocontact')" class="flt-btn" data-group="status" data-val="nocontact">❌ Нет связи</button>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; align-items:center;">
+      <div style="font-size:12px; color:var(--text-muted); margin-right:4px;">Регион:</div>
+      <button onclick="filterTable('region','all')" class="flt-btn active" data-group="region" data-val="all">Все регионы</button>
+      <button onclick="filterTable('region','cis')" class="flt-btn" data-group="region" data-val="cis">🌍 СНГ</button>
+      <button onclick="filterTable('region','europe')" class="flt-btn" data-group="region" data-val="europe">🌍 Европа</button>
+      <button onclick="filterTable('region','asia')" class="flt-btn" data-group="region" data-val="asia">🌏 Азия</button>
+    </div>
+
+    <!-- SEARCH -->
+    <div style="margin-bottom:14px;">
+      <input type="text" id="uni-search" placeholder="Поиск по названию или стране..." oninput="searchTable()" style="width:100%; max-width:400px; padding:8px 12px; border:1px solid var(--border); border-radius:var(--radius-sm); font-size:13px; color:var(--text-primary); background:var(--white); outline:none;">
+    </div>
+
+    <!-- COUNTER -->
+    <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+      Показано: <span id="uni-count" style="font-weight:600; color:var(--text-primary);">0</span> университетов
+    </div>
+
+    <!-- TABLE -->
+    <div style="overflow-x:auto;">
+      <table id="uni-table" style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead>
+          <tr style="background:var(--navy);">
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Университет</th>
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Страна</th>
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Регион</th>
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Канал</th>
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Статус</th>
+            <th style="padding:10px 12px; text-align:left; color:white; font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap;">Комментарий</th>
+          </tr>
+        </thead>
+        <tbody id="uni-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Конфиденциально · Только для внутреннего использования · CAU Events Team</div>
+    <div class="footer-logo">CAU · Medicine of the Future 2026</div>
+  </div>
+
+</div>
+<style>
+.flt-btn {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--white);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.flt-btn:hover { background: var(--gray-pale); }
+.flt-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+#uni-search:focus { border-color: var(--navy); }
+#uni-tbody tr:hover { background: var(--gray-pale); }
+#uni-tbody tr { transition: background 0.1s; }
+</style>
+
+<script>
+const UNI_DATA = [
+  // СНГ
+  {name:"Astana Medical University", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Карагандинский медицинский университет", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Южно-Казахстанская медицинская академия", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Кокшетауский ун-т им. Ш.Уалиханова", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Казахский НМУ им. С.Д.Асфендиярова", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"КГМА Ахунбаева", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Asian International University", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Высшая школа медицины (Бишкек)", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Avicenna Tajik State Medical University", country:"Таджикистан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Хатлонский ГМУ", country:"Таджикистан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Osiyo Xalqaro Universiteti (OXU)", country:"Узбекистан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Central Asian Medical University (MERIDIAN)", country:"Узбекистан", region:"cis", channel:"WhatsApp", status:"confirmed", comment:"Заявка принята ✅"},
+  {name:"МУ Семей (предварительно)", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Предварительное подтверждение ✅"},
+  {name:"Медицинский университет Астана", country:"Казахстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Окончательное подтверждение ✅"},
+  {name:"Eastern Mediterranean University", country:"Кипр", region:"europe", channel:"Email", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"МГУ им. М.В. Ломоносова", country:"Россия", region:"europe", channel:"Email", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"СПбГПМУ (Педиатрический)", country:"Россия", region:"europe", channel:"Email", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"РНИМУ им. Н.И. Пирогова", country:"Россия", region:"europe", channel:"Email", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Tbilisi State Medical University (TSMU)", country:"Грузия", region:"asia", channel:"Instagram", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Ошский Государственный Университет", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"ISM-IUK — команда Pulse Patrol", country:"Кыргызстан", region:"cis", channel:"Email", status:"confirmed", comment:"Заявка получена ✅"},
+  {name:"Kimyo International University in Tashkent (KIUT)", country:"Узбекистан", region:"cis", channel:"Email", status:"confirmed", comment:"Заявка получена, подписана проректором ✅"},
+  {name:"Термезский филиал ТГМУ — команда Махаон", country:"Узбекистан", region:"cis", channel:"Email", status:"confirmed", comment:"Заявка получена, подписана директором ✅"},
+  {name:"Shahid Beheshti University of Medical Sciences", country:"Иран", region:"asia", channel:"Email", status:"confirmed", comment:"Заявка и состав команды получены ✅"},
+  {name:"IHSM — кампус 1", country:"Кыргызстан", region:"cis", channel:"Email", status:"confirmed", comment:"Заявка получена, уточняется ✅"},
+  {name:"IHSM — кампус 2", country:"Кыргызстан", region:"cis", channel:"Email", status:"confirmed", comment:"Заявка получена, уточняется ✅"},
+  {name:"Ошский ГУ — кампус 2 (2-я команда)", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"confirmed", comment:"2 кампуса — 2 команды ✅"},
+  {name:"EREBUNI Medical Academy Foundation", country:"Армения", region:"asia", channel:"Email", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Карагандинский медицинский университет", country:"Казахстан", region:"cis", channel:"Email", status:"confirmed", comment:"Обновили заявку ✅"},
+  {name:"Международная Высшая Школа Медицины (IHSM)", country:"Кыргызстан", region:"cis", channel:"Email", status:"confirmed", comment:"Приказ ректора получен, ожидаем финальную заявку ✅"},
+  {name:"Узбекистан — 13 вузов (ожидаем список)", country:"Узбекистан", region:"cis", channel:"Звонок", status:"waiting", comment:"Ожидаем список участников"},
+  {name:"Таджикистан — 2 вуза", country:"Таджикистан", region:"cis", channel:"Звонок", status:"waiting", comment:"В процессе обсуждения"},
+  {name:"Кыргызстан — 2 вуза", country:"Кыргызстан", region:"cis", channel:"Звонок", status:"waiting", comment:"Ожидаем список"},
+
+  // ЕВРОПА
+  {name:"Karolinska Institutet", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Uppsala University – Faculty of Medicine", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Gothenburg – Sahlgrenska", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Lund University – Faculty of Medicine", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Umeå University – Faculty of Medicine", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Linköping University – Faculty of Medicine", country:"Швеция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université de Lausanne – FBM", country:"Швейцария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Bern – Medizinische Fakultät", country:"Швейцария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Zürich – Medizinische Fakultät", country:"Швейцария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université de Genève – Faculté de Médecine", country:"Швейцария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Basel – Medizinische Fakultät", country:"Швейцария", region:"europe", channel:"Звонок", status:"nocontact", comment:"Нет связи"},
+  {name:"Medizinische Universität Wien", country:"Австрия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Номера нет / не поддерживается"},
+  {name:"Medizinische Universität Graz", country:"Австрия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Номера нет / не поддерживается"},
+  {name:"Medizinische Universität Innsbruck", country:"Австрия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу ранее"},
+  {name:"Karl Landsteiner University of Health Sciences", country:"Австрия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"University of Copenhagen – Faculty of Health", country:"Дания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Aarhus University – Faculty of Health", country:"Дания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Charité – Universitätsmedizin Berlin", country:"Германия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не говорят по-английски"},
+  {name:"Ludwig-Maximilians-Universität München", country:"Германия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не говорят по-английски"},
+  {name:"Universität Hamburg – UKE", country:"Германия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Номер отключён"},
+  {name:"Universität Heidelberg – Medizinische Fakultät", country:"Германия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Università Vita-Salute San Raffaele", country:"Италия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не говорят по-английски"},
+  {name:"Università degli Studi di Verona", country:"Италия", region:"europe", channel:"Звонок", status:"callback", comment:"Не подняли — перезвонить"},
+  {name:"Università degli Studi di Bari Aldo Moro", country:"Италия", region:"europe", channel:"Звонок", status:"callback", comment:"Не подняли — перезвонить"},
+  {name:"Università degli Studi di Perugia", country:"Италия", region:"europe", channel:"Звонок", status:"callback", comment:"Не подняли — перезвонить"},
+  {name:"Università degli Studi di Messina", country:"Италия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Номер отключён"},
+  {name:"Università degli Studi di Catania", country:"Италия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Номер отключён"},
+  {name:"Amsterdam UMC – University of Amsterdam", country:"Нидерланды", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"Leiden University Medical Center (LUMC)", country:"Нидерланды", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"Erasmus MC – Erasmus University Rotterdam", country:"Нидерланды", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"UMC Utrecht – Utrecht University", country:"Нидерланды", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"University of Groningen – UMCG", country:"Нидерланды", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"Maastricht University – Medicine", country:"Нидерланды", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"Radboud University Medical Center", country:"Нидерланды", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"Universidad Autónoma de Madrid", country:"Испания", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Universidad de Sevilla – Medicina", country:"Испания", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Universidad de Valladolid – Medicina", country:"Испания", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Universidad de Santiago de Compostela", country:"Испания", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Universidad de Cantabria – Medicina", country:"Испания", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Universidad de Barcelona – Medicina", country:"Испания", region:"europe", channel:"Звонок", status:"callback", comment:"Перезвонить позже"},
+  {name:"Universitat Autònoma de Barcelona", country:"Испания", region:"europe", channel:"Звонок", status:"callback", comment:"Не дозвонились"},
+  {name:"Universitat de València – Medicina", country:"Испания", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не дозвонились"},
+  {name:"Universidad de Granada – Medicina", country:"Испания", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не дозвонились"},
+  {name:"Collegium Medicum UJ – Kraków", country:"Польша", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Poznan University of Medical Sciences", country:"Польша", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Collegium Medicum UMK – Bydgoszcz", country:"Польша", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Uniwersytet Medyczny w Lublinie", country:"Польша", region:"europe", channel:"Email", status:"email", comment:"Отправлено приглашение"},
+  {name:"Warszawski Uniwersytet Medyczny", country:"Польша", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не дозвонились"},
+  {name:"Charles University – 1st Faculty of Medicine", country:"Чехия", region:"europe", channel:"Email", status:"email", comment:"Email + Instagram отправлен"},
+  {name:"Charles University – 2nd Faculty of Medicine", country:"Чехия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не дозвонились"},
+  {name:"Charles University – 3rd Faculty of Medicine", country:"Чехия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Нет связи"},
+  {name:"Masaryk University – Faculty of Medicine", country:"Чехия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Нет связи"},
+  {name:"Palacký University Olomouc", country:"Чехия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Нет связи"},
+  {name:"Ostrava University – Faculty of Medicine", country:"Чехия", region:"europe", channel:"Звонок", status:"nocontact", comment:"Нет связи"},
+  {name:"University of Latvia", country:"Латвия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"Riga Stradiņš University", country:"Латвия", region:"europe", channel:"Звонок", status:"callback", comment:"Не подняли — перезвонить"},
+  {name:"P. Stradiņš Medical College", country:"Латвия", region:"europe", channel:"Звонок", status:"callback", comment:"Не подняли — перезвонить"},
+  {name:"Словения — 1 вуз", country:"Словения", region:"europe", channel:"Email", status:"email", comment:"1 ответил — запросил email ✉️"},
+  {name:"Эстония — 1 вуз", country:"Эстония", region:"europe", channel:"Email", status:"email", comment:"Попросили скинуть info на email ✉️"},
+  {name:"Semmelweis University", country:"Венгрия", region:"europe", channel:"Instagram", status:"email", comment:"Instagram + нужно перезвонить"},
+  {name:"University of Debrecen", country:"Венгрия", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"University of Pécs Medical School", country:"Венгрия", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"University of Dundee School of Medicine", country:"Великобритания", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn + запросили email"},
+  {name:"University of St Andrews School of Medicine", country:"Великобритания", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"Остальные вузы UK (14)", country:"Великобритания", region:"europe", channel:"Звонок", status:"nocontact", comment:"Не дозвонились"},
+  {name:"Sorbonne Université – Faculté de Médecine", country:"Франция", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"Université Paris-Saclay – Faculté de Médecine", country:"Франция", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"Université de Bordeaux – UFR Médecine", country:"Франция", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"Université de Montpellier – Médecine", country:"Франция", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"Université Claude Bernard Lyon 1", country:"Франция", region:"europe", channel:"LinkedIn", status:"email", comment:"LinkedIn отправлен"},
+  {name:"National and Kapodistrian University of Athens", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Aristotle University of Thessaloniki", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Patras – School of Medicine", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Crete – Faculty of Medicine", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Ioannina", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Thessaly – Faculty of Medicine", country:"Греция", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Universidade de Coimbra – Medicina", country:"Португалия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"Nova Medical School – Universidade NOVA de Lisboa", country:"Португалия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"Faculdade de Medicina da Universidade de Lisboa", country:"Португалия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Faculdade de Medicina da Universidade do Porto", country:"Португалия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Сеченовский университет", country:"Россия", region:"europe", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Крымский Федеральный Университет", country:"Россия", region:"europe", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Первый МГМУ им. И.М. Сеченова", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"РНИМУ им. Н.И. Пирогова", country:"Россия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Первый СПбГМУ им. И.П. Павлова", country:"Россия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Казанский ГМУ", country:"Россия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Новосибирский ГМУ", country:"Россия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Уральский ГМУ", country:"Россия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Smolensk State Medical University", country:"Россия", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Bukovinian State Medical University", country:"Болгария", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Medical University of Varna", country:"Болгария", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Medical University of Pleven", country:"Болгария", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Ukrainian Medical Students' Association", country:"Украина", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Kyiv Medical University", country:"Украина", region:"europe", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"University College Cork", country:"Ирландия", region:"europe", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"University College Dublin – School of Medicine", country:"Ирландия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Trinity College Dublin – School of Medicine", country:"Ирландия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Galway – Medicine", country:"Ирландия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"University of Limerick – Medicine", country:"Ирландия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Royal College of Surgeons in Ireland (RCSI)", country:"Ирландия", region:"europe", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+
+  // АЗИЯ
+  {name:"Hasanuddin University", country:"Индонезия", region:"asia", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Universitas Airlangga", country:"Индонезия", region:"asia", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Universitas Indonesia (UI)", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Universitas Gadjah Mada (UGM)", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Universitas Udayana", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Universitas Diponegoro", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"UIN Jakarta – Faculty of Medicine", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"UPI Bandung – Faculty of Medicine", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Sultan Ageng Tirtayasa University", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"UKI Jakarta – Faculty of Medicine", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"ISMKI – Indonesian Medical Students' Assoc.", country:"Индонезия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Isfahan University of Medical Sciences", country:"Иран", region:"asia", channel:"Профессор", status:"confirmed", comment:"Подтверждено через Dr. Nahid Shakib ✅"},
+  {name:"Karadeniz Technical University", country:"Турция", region:"asia", channel:"Звонок", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Istanbul Faculty of Medicine (Çapa)", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Cerrahpasa Faculty of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Hacettepe University School of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Ankara University School of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Istanbul Medipol University", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Marmara University Faculty of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Ege University Faculty of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Erciyes University Faculty of Medicine", country:"Турция", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"New Vision University", country:"Грузия", region:"asia", channel:"Профессор", status:"confirmed", comment:"Подтверждено ✅"},
+  {name:"Tbilisi State Medical University (TSMU)", country:"Грузия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"David Tvildiani Medical University", country:"Грузия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"European University Georgia", country:"Грузия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"University of Malaya – Faculty of Medicine", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Email отправлен по запросу ✉️"},
+  {name:"Universiti Malaysia Sarawak", country:"Малайзия", region:"asia", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"RCSI & UCD Malaysia Campus", country:"Малайзия", region:"asia", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"International Islamic University Malaysia", country:"Малайзия", region:"asia", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"AIIMS New Delhi", country:"Индия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram + не говорят по-английски"},
+  {name:"Kasturba Medical College, Manipal", country:"Индия", region:"asia", channel:"Email", status:"email", comment:"Email отправлен по запросу"},
+  {name:"CMC Vellore Students' Association", country:"Индия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Bangalore Medical College", country:"Индия", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"King George's Medical University", country:"Индия", region:"asia", channel:"Звонок", status:"callback", comment:"Нужно перезвонить"},
+  {name:"Weill Cornell Medicine – Qatar", country:"Катар", region:"asia", channel:"Звонок", status:"callback", comment:"Работают вс–чт, перезвонить"},
+  {name:"Qatar University", country:"Катар", region:"asia", channel:"Звонок", status:"callback", comment:"Работают вс–чт, перезвонить"},
+  {name:"American University of Beirut (AUB)", country:"Ливан", region:"asia", channel:"Звонок", status:"callback", comment:"Перенаправляют — продолжить"},
+  {name:"Lebanese American University", country:"Ливан", region:"asia", channel:"Звонок", status:"callback", comment:"Перенаправляют — продолжить"},
+  {name:"Lebanese University", country:"Ливан", region:"asia", channel:"Звонок", status:"callback", comment:"Перенаправляют — продолжить"},
+  {name:"Faculty of Medicine, Chulalongkorn University", country:"Таиланд", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Faculty of Medicine Siriraj, Mahidol University", country:"Таиланд", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"University of the Philippines – Medicine", country:"Филиппины", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"UP Manila (Official)", country:"Филиппины", region:"asia", channel:"Instagram", status:"email", comment:"Instagram отправлен"},
+  {name:"Yonsei University (через проф. Imshik Lee)", country:"Южная Корея", region:"asia", channel:"Профессор", status:"waiting", comment:"В работе — ответ ожидается"},
+  {name:"Ewha Womans University (через проф. Imshik Lee)", country:"Южная Корея", region:"asia", channel:"Профессор", status:"waiting", comment:"В работе — ответ ожидается"},
+  {name:"Западно-Казахстанский медицинский университет им. М. Оспанова", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Медицинский университет Семей", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Костанайский государственный университет им. А. Байтурсынова", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Евразийский национальный университет им. Л.Н. Гумилева", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Казахстанский медицинский университет ВШОЗ (KSPH)", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"КазНУ им. аль-Фараби — медицинский факультет", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Северо-Казахстанский университет им. М. Козыбаева — медицинский факультет", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Казахстанско-Российский медицинский университет (КРМУ)", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Caspian University — Каспийская международная школа медицины", country:"Казахстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Таджикский медицинский университет им. Абуали ибн Сины", country:"Таджикистан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Медико-социальный институт Таджикистана", country:"Таджикистан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Tajik National University — Faculty of Medicine", country:"Таджикистан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Ошский государственный университет — медицинский факультет", country:"Кыргызстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Кыргызско-Российский Славянский университет — медицинский факультет", country:"Кыргызстан", region:"cis", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Caucasus International University (CIU)", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Petre Shotadze Tbilisi Medical Academy", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"BAU International University Batumi", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University Geomedi", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Georgian American University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Georgian National University SEU", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"East European University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Caucasus University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Alte University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Ilia State University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Kutaisi International University", country:"Грузия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Azerbaijan Medical University", country:"Азербайджан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Baku State University — Faculty of Biology and Medical Sciences", country:"Азербайджан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Nakhchivan State University — Faculty of Medicine", country:"Азербайджан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Karabakh University — Faculty of Medicine and Health Sciences", country:"Азербайджан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Yerevan State Medical University (YSMU)", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Yerevan State University — Faculty of Biology", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Armenian Medical Institute", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Traditional Medicine", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Yerevan Haybusak University — Medical Institute", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Erebuni Medical Academy Foundation", country:"Армения", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Peking University Health Science Center (PUHSC)", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Sun Yat-sen University — Zhongshan School of Medicine", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Zhejiang University School of Medicine", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Fudan University — School of Medicine", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Capital Medical University", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Nanjing Medical University", country:"Китай", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Seoul National University (SNU) — College of Medicine", country:"Южная Корея", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Korea University — College of Medicine", country:"Южная Корея", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Sungkyunkwan University — School of Medicine", country:"Южная Корея", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Ulsan — College of Medicine", country:"Южная Корея", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Pusan National University — School of Medicine", country:"Южная Корея", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"The University of Tokyo — Faculty of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Kyoto University — Faculty of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Osaka University — Faculty of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Tohoku University — School of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Nagoya University — School of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Tokyo Medical and Dental University (TMDU)", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Chiba University — School of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Keio University — School of Medicine", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Kyushu University — Faculty of Medical Sciences", country:"Япония", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"NUS — Yong Loo Lin School of Medicine", country:"Сингапур", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"NTU — Lee Kong Chian School of Medicine", country:"Сингапур", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Duke-NUS Medical School", country:"Сингапур", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Kebangsaan Malaysia (UKM)", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Sains Malaysia (USM)", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Putra Malaysia (UPM)", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"International Medical University (IMU)", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Manipal University College Malaysia", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"AIMST University", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Teknologi MARA — Faculty of Medicine", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Malaysia Sabah — Faculty of Medicine", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Cyberjaya", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"UCSI University — Faculty of Medicine", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Monash University Malaysia — Jeffrey Cheah School of Medicine", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universiti Sains Islam Malaysia", country:"Малайзия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Padjadjaran (UNPAD)", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Sebelas Maret (UNS)", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Brawijaya (UB)", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Pelita Harapan (UPH)", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Trisakti", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universitas Katolik Atma Jaya", country:"Индонезия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Amrita Institute of Medical Sciences, Kochi", country:"Индия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"JSS Medical College, Mysore", country:"Индия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Christian Medical College (CMC), Vellore", country:"Индия", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Aga Khan University — Medical College", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Fatima Jinnah Medical University", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Allama Iqbal Medical University", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Lahore Medical and Dental College", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Khyber Medical University", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Quaid-e-Azam Medical College", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Sindh Medical University", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"King Edward Medical University", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Dow University of Health Sciences", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"National University of Medical Sciences", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Liaquat University of Medical & Health Sciences", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Shifa College of Medicine, Islamabad", country:"Пакистан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Saint George University of Beirut — Faculty of Medicine", country:"Ливан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Holy Spirit University of Kaslik — School of Medicine", country:"Ливан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Beirut Arab University — Faculty of Medicine", country:"Ливан", region:"asia", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Pirogov Russian National Research Medical University (RNRMU)", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Saint Petersburg State Pediatric Medical University", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Volgograd State Medical University", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Bashkir State Medical University (BSMU)", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Rostov State Medical University", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Russian Medical Academy of Continuous Professional Education", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Ryazan State Medical University", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Kursk State Medical University", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"North-Western State Medical University im. I.I. Mechnikov", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"МГУ им. М.В. Ломоносова — факультет медицины", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Сибирский государственный медицинский университет (СибГМУ)", country:"Россия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Montenegro — Faculty of Medicine", country:"Черногория", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Donja Gorica (UDG)", country:"Черногория", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University Mediterranean Podgorica", country:"Черногория", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Sarajevo – Faculty of Medicine", country:"Босния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of East Sarajevo – Faculty of Medicine", country:"Босния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Banja Luka – Faculty of Medicine", country:"Босния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Zenica – Faculty of Medicine", country:"Босния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Mostar – Faculty of Medicine", country:"Босния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Medicine, Tirana (UMT)", country:"Албания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Catholic University Our Lady of Good Counsel – Faculty of Medicine", country:"Албания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Barleti University – Faculty of Medical Sciences", country:"Албания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Albanian University – Faculty of Medical Sciences", country:"Албания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Jessenius Faculty of Medicine in Martin", country:"Словакия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Slovak Medical University in Bratislava", country:"Словакия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Szeged – Faculty of Medicine", country:"Венгрия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Nicosia Medical School", country:"Кипр", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Cyprus International University – Faculty of Medicine", country:"Кипр", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Cyprus Medical School", country:"Кипр", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Carol Davila University of Medicine and Pharmacy", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Iuliu Hațieganu University of Medicine and Pharmacy", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Grigore T. Popa University of Medicine and Pharmacy", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Victor Babeș University of Medicine and Pharmacy", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"George Emil Palade University of Medicine", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Ovidius University of Constanta – Faculty of Medicine", country:"Румыния", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Medical University of Sofia", country:"Болгария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Medical University of Plovdiv", country:"Болгария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Trakia University (Stara Zagora) – Faculty of Medicine", country:"Болгария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Sofia University – Faculty of Medicine", country:"Болгария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Belarusian State Medical University", country:"Беларусь", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Grodno State Medical University", country:"Беларусь", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Vitebsk State Medical University", country:"Беларусь", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Gomel State Medical University", country:"Беларусь", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Fribourg – Faculty of Science and Medicine", country:"Швейцария", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Università degli Studi di Padova – Medicina e Chirurgia", country:"Италия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Università degli Studi di Torino – Medicina", country:"Италия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Università degli Studi di Roma La Sapienza – Medicina", country:"Италия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Università degli Studi di Cagliari – Medicina e Chirurgia", country:"Италия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Università Politecnica delle Marche – Medicina e Chirurgia", country:"Италия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Malta – Faculty of Medicine and Surgery", country:"Мальта", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"MediCampus Europeo – Malta International Medical School", country:"Мальта", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Queen Mary University of London – Malta campus", country:"Мальта", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Oslo – Faculty of Medicine", country:"Норвегия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Bergen – Faculty of Medicine", country:"Норвегия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Tromsø (UiT) – Faculty of Health Sciences", country:"Норвегия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Norwegian University of Science and Technology (NTNU) – Medicine", country:"Норвегия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Tartu – Faculty of Medicine", country:"Эстония", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Helsinki – Faculty of Medicine", country:"Финляндия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Turku – Faculty of Medicine", country:"Финляндия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Tampere University – Faculty of Medicine", country:"Финляндия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Oulu – Faculty of Medicine", country:"Финляндия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Eastern Finland – Faculty of Health Sciences", country:"Финляндия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Lithuanian University of Health Sciences (LSMU) – Medical Academy", country:"Литва", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Vilnius University – Faculty of Medicine", country:"Литва", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Ljubljana – Faculty of Medicine", country:"Словения", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Maribor – Faculty of Medicine", country:"Словения", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Primorska – Faculty of Health Care", country:"Словения", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Catholic University of Croatia – Faculty of Medicine", country:"Хорватия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Iceland – Faculty of Medicine", country:"Исландия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Católica Medical School – Universidade Católica Portuguesa", country:"Португалия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Aberdeen School of Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Edinburgh Medical School", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Glasgow School of Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Oxford Medical Sciences Division", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Cambridge School of Clinical Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Imperial College London Faculty of Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University College London Medical School", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"King\'s College London – GKT School of Medical Education", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Queen Mary University of London – Barts and The London", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Manchester School of Medical Sciences", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Birmingham Medical School", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Leeds School of Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Liverpool School of Medicine", country:"Великобритания", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université Paris Cité – Faculté de Santé", country:"Франция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Aix-Marseille Université – Faculté de Médecine", country:"Франция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université de Strasbourg – Faculté de Médecine", country:"Франция", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"KU Leuven – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"University of Antwerp – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Ghent University – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Vrije Universiteit Brussel – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université catholique de Louvain – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université de Liège – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Université libre de Bruxelles – Faculty of Medicine", country:"Бельгия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Leipzig – Medical Faculty", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Technische Universität München (TUM) – School of Medicine", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Freiburg – Medizinische Fakultät", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Eberhard Karls Universität Tübingen – Medizinische Fakultät", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Goethe-Universität Frankfurt am Main – Medizin", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Köln – Medizinische Fakultät", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"RWTH Aachen University – Faculty of Medicine", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+  {name:"Universität Bonn – Medizinische Fakultät", country:"Германия", region:"europe", channel:"Email", status:"email", comment:"Пригласительное письмо отправлено"},
+];
+
+const STATUS_CONFIG = {
+  confirmed: { label: "✅ Подтверждено", bg: "#E2EFDA", color: "#2D6A4F" },
+  waiting:   { label: "⏳ Ожидаем",      bg: "#FFF2CC", color: "#7F6000" },
+  email:     { label: "📧 Email отправлен", bg: "#E0F7FA", color: "#006064" },
+  callback:  { label: "📞 Перезвонить",  bg: "#FCE4D6", color: "#C55A11" },
+  nocontact: { label: "❌ Нет связи",    bg: "#FFE0E0", color: "#9B2335" },
+};
+
+const CHANNEL_CONFIG = {
+  "Звонок":    { bg: "#EEF2FF", color: "#3730A3" },
+  "Email":     { bg: "#E0F7FA", color: "#006064" },
+  "LinkedIn":  { bg: "#EEF4FF", color: "#1B4F8A" },
+  "Instagram": { bg: "#FCE4EC", color: "#880E4F" },
+  "WhatsApp":  { bg: "#E8F5E9", color: "#1B5E20" },
+  "Профессор": { bg: "#EAD1DC", color: "#4A0072" },
+};
+
+let activeStatus = "all";
+let activeRegion = "all";
+let searchQuery = "";
+
+function filterTable(group, val) {
+  if (group === "status") activeStatus = val;
+  if (group === "region") activeRegion = val;
+  document.querySelectorAll(`.flt-btn[data-group="${group}"]`).forEach(b => b.classList.remove("active"));
+  document.querySelector(`.flt-btn[data-group="${group}"][data-val="${val}"]`).classList.add("active");
+  renderTable();
+}
+
+function searchTable() {
+  searchQuery = document.getElementById("uni-search").value.toLowerCase();
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.getElementById("uni-tbody");
+  const filtered = UNI_DATA.filter(u => {
+    const matchStatus = activeStatus === "all" || u.status === activeStatus;
+    const matchRegion = activeRegion === "all" || u.region === activeRegion;
+    const matchSearch = !searchQuery || u.name.toLowerCase().includes(searchQuery) || u.country.toLowerCase().includes(searchQuery);
+    return matchStatus && matchRegion && matchSearch;
+  });
+
+  document.getElementById("uni-count").textContent = filtered.length;
+
+  const regionLabel = { cis: "🌍 СНГ", europe: "🌍 Европа", asia: "🌏 Азия" };
+
+  tbody.innerHTML = filtered.map((u, i) => {
+    const s = STATUS_CONFIG[u.status] || { label: u.status, bg: "#F5F5F5", color: "#555" };
+    const ch = CHANNEL_CONFIG[u.channel] || { bg: "#F5F5F5", color: "#555" };
+    const rowBg = i % 2 === 0 ? "#FFFFFF" : "#F8F9FB";
+    return `<tr style="background:${rowBg}; border-bottom:1px solid #EAECF0;">
+      <td style="padding:9px 12px; font-weight:500; color:#0F1F3D;">${u.name}</td>
+      <td style="padding:9px 12px; color:#4A5369;">${u.country}</td>
+      <td style="padding:9px 12px; color:#4A5369; white-space:nowrap;">${regionLabel[u.region] || u.region}</td>
+      <td style="padding:9px 12px;"><span style="background:${ch.bg}; color:${ch.color}; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:500; white-space:nowrap;">${u.channel}</span></td>
+      <td style="padding:9px 12px;"><span style="background:${s.bg}; color:${s.color}; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:500; white-space:nowrap;">${s.label}</span></td>
+      <td style="padding:9px 12px; color:#4A5369; font-size:12px;">${u.comment}</td>
+    </tr>`;
+  }).join("");
+}
+
+renderTable();
+</script>
+</body>
+</html>
